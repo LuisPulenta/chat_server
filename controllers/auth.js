@@ -1,9 +1,9 @@
 const {response} = require('express');
 const bcrypt = require('bcryptjs');
-
 const Usuario = require ('../models/usuario');
 const { generarJWT } = require('../helpers/jwt');
 
+//--------------------------------------------------------------------------------
 const crearUsuario= async(req, res=response)=>{
 
     const{email,password}=req.body;
@@ -42,6 +42,7 @@ const crearUsuario= async(req, res=response)=>{
     }
 }
 
+//--------------------------------------------------------------------------------
 const login= async(req, res=response)=>{
 
     const{email,password}=req.body;
@@ -78,11 +79,12 @@ const login= async(req, res=response)=>{
         return res.status(500).json({
             ok:false,
             msg:'Hable con el administrador'
-            })
-        }
+        })
     }
+}
 
-    const renewToken= async(req, res=response)=>{
+//--------------------------------------------------------------------------------
+const renewToken= async(req, res=response)=>{
 
     const uid = req.uid;
 
@@ -90,13 +92,12 @@ const login= async(req, res=response)=>{
 
     const usuario = await Usuario.findById(uid);
 
-        res.json({
-            ok:true,
-            usuario,
-            token
-        });
-    }
-
+    res.json({
+        ok:true,
+        usuario,
+        token
+    });
+}
 
 
 module.exports ={
